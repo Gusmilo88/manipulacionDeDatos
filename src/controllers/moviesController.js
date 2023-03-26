@@ -1,5 +1,7 @@
 const db = require('../database/models');
 const sequelize = db.sequelize;
+const moment = require('moment');
+
 
 //Otra forma de llamar a los modelos
 const Movies = db.Movie;
@@ -43,12 +45,21 @@ const moviesController = {
     }, //Aqui debemos modificar y completar lo necesario para trabajar con el CRUD
     add: function (req, res) {
         // TODO   
+        return res.render("moviesAdd")
     },
     create: function (req, res) {
         // TODO
     },
     edit: function(req, res) {
         // TODO
+        db.Movie.findByPk(req.params.id)
+            .then(Movie => {
+                return res.render("moviesEdit", {
+                    Movie,
+                    moment
+                })
+            })
+            .catch(error => console.log(error))
     },
     update: function (req,res) {
         // TODO
